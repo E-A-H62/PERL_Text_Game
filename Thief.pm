@@ -6,7 +6,7 @@ use strict;
 use warnings;
 
 # constructor method for class
-# can remove things as needed
+# can remove/add things as needed
 sub new {
     my $class = shift;
     my $self = {
@@ -61,4 +61,4 @@ sub getFortune {
     }
 }
 
-1;
+1; # must have at end of class definition

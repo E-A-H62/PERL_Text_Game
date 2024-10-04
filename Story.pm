@@ -29,6 +29,7 @@ sub setCityName {
     return $self->{_city};
 }
 
+# method to begin text adventure
 sub startStory {
     print "It's just another day in the city.\n";
     print "Except this time a new face has arrived.\n";
@@ -36,16 +37,15 @@ sub startStory {
     shift->explore(); # call method on current object
 }
 
+# method for main exploration route of game
 sub explore {
     my ($self) = @_;
     print "~~~~~~~~~~\n";
     print "In such a large city, there are countless places to go.\n";
     print "There are also many places that have yet to be explored.\n";
-    ##EXPLORE: # figure out how placement of this label affects how input is read
     print "What do you do?\n";
     my $string = <STDIN>;
     chomp($string);
-    # label used to be here but caused infinite loop? Maybe since string wasn't read in?
     while ($string !~ /quit/i){
         if ($string =~ /black market/i){ # using i in the regex makes check case-insensitive
             $self->blackMarket();
@@ -69,16 +69,17 @@ sub explore {
 }
 
 sub blackMarket() {
-    my ($self) = @_; # figure out what this line does
+    my ($self) = @_;
     print "This is where you would go if you went to the black market.\n";
 
-    my $thief = $self->{_thief}; # also figure this out
+    my $thief = $self->{_thief};
     $thief->goToBlackMarket();
     print "This is where you would go after visiting the black market.\n";
 }
 
 sub psychicTent() {
     print "This is where you would go if you went to the psychic.\n";
+    #expand later
 }
 
 sub darkAlley() {
@@ -96,5 +97,5 @@ sub tavern() {
     #expand later
 }
 
-1;
+1; # must have at end of class definition
 
