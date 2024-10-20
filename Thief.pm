@@ -30,10 +30,12 @@ sub goToBlackMarket {
     print "Being as experienced as you are, you know exactly what it represents.\n";
     print "Following the different clues you make your way to the black market.\n";
     print "What do you do?\n";
+    print "  ‣ Enter? \n";
+    print "  ‣ Leave?\n";
     my $string = <STDIN>;
     chomp($string);
     while ($string !~ /leave/i){
-        if ($string =~ /vendor/i){ # figure out how to use logical operations (ex: or, and)
+        if ($string =~ /enter/i){ # figure out how to use logical operations (ex: or, and)
             print "You approach the nearest vendor and look at his wares.\n";
             # can have shopping route here
         }
@@ -43,22 +45,67 @@ sub goToBlackMarket {
     }
 }
 
+sub buyObject{
+    #helper for black market if needed
+}
+
+sub stealObject{
+    #helper for black market if needed 
+}
+
 sub getFortune {
     my ($self) = @_;
-    print "You see a colorful tent near the center of the square.";
-    print "As you get closer you see an elegant sign that reads 'Psychic'.";
+    print "~~~~~~~~~~\n";
+    print "You see a colorful tent near the center of the square.\n";
+    print "As you get closer you see an elegant sign that reads 'Psychic'.\n";
     print "What do you do?\n";
+    print "  ‣ Enter? \n";
+    print "  ‣ Leave?\n";
     my $string = <STDIN>;
     chomp($string);
     while ($string !~ /leave/i){
         if ($string =~ /enter/i){
-            print "You walk inside and immediately feel a sense of calm.";
+            print "You walk inside and immediately feel a sense of calm.\n";
             # can have fortune-telling route here
         }
         print "What else do you do?\n";
         $string = <STDIN>;
         chomp($string);
     }
+}
+
+
+
+sub goToAlley{
+    # added just in case
+    my ($self) = @_;
+    print "~~~~~~~~~~\n";
+    print "Your at the Alley.\n";
+    print "You can't do anything here yet!\n";
+}
+
+sub goToSquare{
+    # added just in case
+    my ($self) = @_;
+    print "~~~~~~~~~~\n";
+    print "Your at the Sqaure.\n";
+    print "You can't do anything here yet!\n";
+}
+
+sub goToTavern{
+    # added just in case
+    my ($self) = @_;
+    print "~~~~~~~~~~\n";
+    print "Your at the Tavern.\n";
+    print "You can't do anything here yet!\n";
+}
+
+sub goToBar{
+    # to be added 
+}
+
+sub drinkingGame{
+    #to be added 
 }
 
 1; # must have at end of class definition
