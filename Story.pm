@@ -162,13 +162,6 @@ sub explore {
         # prompts user for more input to continue playing
         print "~~~~~~~~~~\n";
         print "What else do you do?\n";
-        print "  ‣ Black Market\n"; 
-        print "  ‣ Psychic\n";
-        print "  ‣ Alley\n"; 
-        print "  ‣ Town Square\n"; 
-        print "  ‣ Tavern\n"; 
-        print "  ‣ Leave the city\n";
-        print "I want to go to: ";
         $string = <STDIN>;
         chomp($string);
         print "~~~~~~~~~~\n";
@@ -210,31 +203,33 @@ sub blackMarket() {
     print "You catch sight of a familiar symbol, something only a select few would know.\n";
     print "When you step back you catch the same symbol on the corner next to the job board.\n";
     print "You stealthily enter the alley and follow the symbols to navigate its twists and turns.\n";
-    print "Soon you emerge from the shadows and step into a hidden avenue.\n";
+    print "\nSoon you emerge from the shadows and step into a hidden avenue.\n";
     print "Dimly lit by flickering lanterns, shady figures exchange goods and talk in soft whispers.\n";
     print "You see many stalls in this black market, but you stride to the one that catches your attention.\n";
 
     # calls method from thief object to continue gameplay in black market
     my $thief = $self->{_thief};
     $thief->goToBlackMarket();
+
     # prints description after user chooses to leave black market
     print "After your dealings, you leave feeling excited and cautious.\n";
 }
 
 # method that allows gameplay in dark alley
 sub darkAlley() {
-    my ($self) = @_;
-    my $thief = $self->{_thief};
-    $thief->goToAlley();
     # allows method to access instance of Story class and its attributes
     my ($self) = @_;
+    my $thief = $self->{_thief};
     print "You step cautiously into the dark alley.\n";
     
     # checks if player chose to spy earlier and prints different responses
     if ($self->{_spied}){
         print "You don't see the cloaked figures you spotted earlier.\n";
         print "However, you do notice an oddly placed brick in the wall.\n";
+        
         # add choices for user to make (from Thief.pm file)
+        $thief->goToAlley();
+
         print "You have a chance to collect yourself now.\n";
     } else {
         # can edit this part so after checking spying can segue into checking inventory.
@@ -242,6 +237,8 @@ sub darkAlley() {
         # can give options for user to check inventory, etc here
     }
     # make call method from instance of Thief to check inventory
+    print "Now that you have a moment to yourself, you look over your assets.\n";
+    $thief->displayInventory();
 }
 
 # method that enables gameplay in town square
@@ -282,8 +279,8 @@ sub townSquare() {
         }
         # checks if user input includes one of accepted words from list
         elsif (grep {$string =~ /$_/i} @shoppingWords){
-            print "This is for shopping.\n";
             # include options to try different shopping routes
+            $thief->goToApothecary();
         }
         # checks if user wants to end the game
         elsif ($string =~ /quit/i){
@@ -315,18 +312,22 @@ sub psychicTent() {
     print "The psychic peers into it, her eyes clouded with visions of the future.\n";
     print "She looks up, her eyes clearing immediately, and gestures for you to sit.\n";
     # call method from instance of Thief
+    $thief->getFortune();
 }
 
 # method that enables gameplay in tavern
 sub tavern() {
     my ($self) = @_;
     my $thief = $self->{_thief};
+
     # prints description when user chooses to go to tavern
     print "You push open the heavy wooden door of the tavern and enter a well-lit room.\n";
     print "The low hum of conversation fills the room while the scent of ale and sawdust fills your nose.\n";
     print "While the atmosphere seems relaxed, it would be wise to tread carefully.\n";
     print "Not everything here is as it seems.\n";
+
     # call method from instance of Thief
+    $thief->goToTavern();
 }
 
 # method that prints first set of hints for what user can do

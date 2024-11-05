@@ -15,7 +15,8 @@ sub new {
         _tools => shift, # char/string representing the tool or tools user has
         _coins => shift, #int representing the num of coins 
         _rep => shift, #int representing reputation
-        _caught => shift, #int representing the number of times users is caught 
+        _caught => shift, #int representing the number of times users is caught
+        _inventory => []
     };
     bless $self, $class;
     return $self;
@@ -25,30 +26,9 @@ sub new {
 
 sub goToBlackMarket {
     my ($self) = @_;
-    print "~~~~~~~~~~\n";
-    print "You are deep in the market now.\n";
-    print "What do you do?\n";
-    print "  ‣ Continue to Stroll? \n";
-    print "  ‣ Leave?\n";
-    my $string = <STDIN>;
-    chomp($string);
-    while ($string !~ /leave/){
-        if ($string =~ /continue/){ 
-            $self->vendorInteraction();
-        }
-        print "What else do you do?\n";
-        $string = <STDIN>;
-        chomp($string);
-    }
-}
-
-sub vendorInteraction{
-    my ($self) = @_;
-    print "You approach the nearest vendor and look at his wares.\n";
-    print "He has a multitude of different things.\n";
-    print "On the floor, there are knives, bags, hats.\n";
-    print "Vendor: 'Oh dear, I see that you have been eyeing my inventory' \n"; 
-    print "Vendor: 'Is there anything you want?' \n";
+    print "You approach the nearest vendor and look at the few wares on the table.\n";
+    print "Vendor: I can see you're someone who knows what they want.\n"; 
+    print "Vendor: What is it you're looking for?\n";
     print "Ask about: \n"; 
     print "  ‣ Hats? \n";
     print "  ‣ Weapons?\n";
@@ -58,23 +38,26 @@ sub vendorInteraction{
     
     my $item_choice = <STDIN>;
     chomp($item_choice);
-    while ($item_choice !~ /leave/) {
-        if ($item_choice =~ /hats/) {
+    while ($item_choice !~ /leave/i) {
+        if ($item_choice =~ /hats/i) {
             $self->buyObject("Hat", 15);
-        } elsif ($item_choice =~ /weapons/) {
+        } elsif ($item_choice =~ /weapons/i) {
             $self->buyObject("Weapon", 50);
-        } elsif ($item_choice =~ /bags/) {
+        } elsif ($item_choice =~ /bags/i) {
             $self->buyObject("Bag", 20);
-        } elsif ($item_choice =~ /potions/) {
+        } elsif ($item_choice =~ /potions/i) {
             $self->buyObject("Potion", 101);
+        } elsif ($item_choice =~ /no/i) {
+            last;
         } else {
             print "That item is not available. Please choose something else.\n";
         }
-        print "Do you want to buy anything else?\n";
+        print "Vendor: Thank you kindly for your patronage.\n";
+        print "Vendor: Would you care for anything else?\n";
         $item_choice = <STDIN>;
-        chomp($item_choice);
+        chomp($item_choice); 
     }
-    print "You leave the vendor's stall.\n";
+    print "Vendor: You know where to find me the next time you need something.\n";
 }
 
 sub buyObject{
@@ -83,15 +66,13 @@ sub buyObject{
         $self->{_coins} -= $cost;
         print "You bought a $item for $cost coins.\n";
         print "You have " . $self->{_coins} . " coins left.\n";
-        push @{$self->{_inventory}}, $item;  # Add the item to the inventory
-        $self->displayInventory();
-        
+        push @{$self->{_inventory}}, $item;  # Add the item to the inventory        
     } else {
         print "You don't have enough coins to buy a $item.\n";
         print "Do you want to steal it?\n"; 
         my $response = <STDIN>;
         chomp($response);
-        if ($response =~ /yes/) {
+        if ($response =~ /yes/i) {
             $self->stealObject($item);
         } else {
             print "You decide not to steal the $item.\n";
@@ -105,8 +86,7 @@ sub stealObject{
     my $success_chance = int(rand(100));  # Generate a random 
     if ($success_chance < 50) {  # 50% chance of successful steal
         print "You successfully stole the $item!\n";
-        push @{$self->{_inventory}}, $item;
-        $self->displayInventory(); 
+        push @{$self->{_inventory}}, $item; 
     } else {
         print "You were caught trying to steal the $item!\n";
         $self->{_caught} += 1;  # Increase the caught counter
@@ -119,60 +99,33 @@ sub displayInventory {
     print "Your inventory contains: " . join(", ", @{$self->{_inventory}}) . "\n";
 }
 
-
 sub getFortune {
-    my ($self) = @_;
-    print "~~~~~~~~~~\n";
-    print "You see a colorful tent near the center of the square.\n";
-    print "As you get closer you see an elegant sign that reads 'Psychic'.\n";
-    print "What do you do?\n";
-    print "  ‣ Enter? \n";
-    print "  ‣ Leave?\n";
-    my $string = <STDIN>;
-    chomp($string);
-    while ($string !~ /leave/i){
-        if ($string =~ /enter/i){
-            print "You walk inside and immediately feel a sense of calm.\n";
-            # can have fortune-telling route here
-
-        }
-        print "What else do you do?\n";
-        $string = <STDIN>;
-        chomp($string);
-    }
+    print "This is when you get your fortune read...\n";
 }
 
-
-
-sub goToAlley{
+sub goToAlley {
     # added just in case
     my ($self) = @_;
-    print "~~~~~~~~~~\n";
-    print "Your at the Alley.\n";
+    print "This is what you will see after spying.\n";
+}
+
+sub goToApothecary {
+    # to be added
+    my ($self) = @_;
+    print "This is where you will go shopping.\n";
+}
+
+sub goToTavern {
+    # to be added
+    my ($self) = @_;
     print "You can't do anything here yet!\n";
 }
 
-sub goToSquare{
-    # added just in case
-    my ($self) = @_;
-    print "~~~~~~~~~~\n";
-    print "Your at the Sqaure.\n";
-    print "You can't do anything here yet!\n";
-}
-
-sub goToTavern{
-    # added just in case
-    my ($self) = @_;
-    print "~~~~~~~~~~\n";
-    print "Your at the Tavern.\n";
-    print "You can't do anything here yet!\n";
-}
-
-sub goToBar{
+sub goToBar {
     # to be added 
 }
 
-sub drinkingGame{
+sub drinkingGame {
     #to be added 
 }
 
