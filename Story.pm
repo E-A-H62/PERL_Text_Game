@@ -162,6 +162,13 @@ sub explore {
         # prompts user for more input to continue playing
         print "~~~~~~~~~~\n";
         print "What else do you do?\n";
+        print "  ‣ Black Market\n"; 
+        print "  ‣ Psychic\n";
+        print "  ‣ Alley\n"; 
+        print "  ‣ Town Square\n"; 
+        print "  ‣ Tavern\n"; 
+        print "  ‣ Leave the city\n";
+        print "I want to go to: ";
         $string = <STDIN>;
         chomp($string);
         print "~~~~~~~~~~\n";
@@ -210,13 +217,15 @@ sub blackMarket() {
     # calls method from thief object to continue gameplay in black market
     my $thief = $self->{_thief};
     $thief->goToBlackMarket();
-
     # prints description after user chooses to leave black market
     print "After your dealings, you leave feeling excited and cautious.\n";
 }
 
 # method that allows gameplay in dark alley
 sub darkAlley() {
+    my ($self) = @_;
+    my $thief = $self->{_thief};
+    $thief->goToAlley();
     # allows method to access instance of Story class and its attributes
     my ($self) = @_;
     print "You step cautiously into the dark alley.\n";
@@ -239,6 +248,7 @@ sub darkAlley() {
 sub townSquare() {
     # allows method to access instance of Story class and its attributes
     my ($self) = @_;
+    my $thief = $self->{_thief};
 
     # prints description for town square
     print "You find yourself in the town square.\n";
@@ -297,6 +307,8 @@ sub townSquare() {
 
 # method that enables gameplay in psychic tent
 sub psychicTent() {
+    my ($self) = @_;
+    my $thief = $self->{_thief};
     # prints description when user chooses to go to psychic tent
     print "You enter the psychic's tent, the air thick with incense and mystery.\n";
     print "A crystal ball glows softly in the dim light.\n";
@@ -307,6 +319,8 @@ sub psychicTent() {
 
 # method that enables gameplay in tavern
 sub tavern() {
+    my ($self) = @_;
+    my $thief = $self->{_thief};
     # prints description when user chooses to go to tavern
     print "You push open the heavy wooden door of the tavern and enter a well-lit room.\n";
     print "The low hum of conversation fills the room while the scent of ale and sawdust fills your nose.\n";
