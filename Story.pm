@@ -207,15 +207,19 @@ sub blackMarket() {
     print "You stealthily enter the alley and follow the symbols to navigate its twists and turns.\n";
     print "Soon you emerge from the shadows and step into a hidden avenue.\n";
 
+    # checks if user already unlocked route for obtaining a relic
     if ($thief->{_relic}) {
+        # prints out description that starts route for getting the relic
         print "You notice a hooded figure leaning against a wall by the entryway.\n";
         print "They're wearing the exact same type of cloak as they figures you saw earlier.\n";
         print "~~~~~~~~~~\n";
+        # prompts user to decide if they want to continue with relic route
         print "Do you approach them?\n";
         my $string = <STDIN>;
         chomp($string);
         print "~~~~~~~~~~\n";
         if ($string =~ /y/i) {
+            # method call to Thief file to try and get relic
             $thief->getRelic();
         } else {
             print "You decide now's not the time and return your attention back to the market around you.\n";
@@ -318,8 +322,11 @@ sub townSquare() {
 
 # method that enables gameplay in psychic tent
 sub psychicTent() {
+    # allows method to access instance of Story class and its attributes
     my ($self) = @_;
+    # allows method to access instance of Thief class
     my $thief = $self->{_thief};
+
     # prints description when user chooses to go to psychic tent
     print "You enter the psychic's tent, the air thick with incense and mystery.\n";
     print "A crystal ball glows softly in the dim light.\n";
@@ -331,7 +338,9 @@ sub psychicTent() {
 
 # method that enables gameplay in tavern
 sub tavern() {
+    # allows method to access instance of Story class and its attributes
     my ($self) = @_;
+    # allows method to access instance of Thief class
     my $thief = $self->{_thief};
 
     # prints description when user chooses to go to tavern
