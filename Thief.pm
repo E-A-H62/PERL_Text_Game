@@ -357,17 +357,128 @@ sub getMedicine {
 }
 
 sub goToTavern {
-    # to be added
     my ($self) = @_;
-    print "You can't do anything here yet!\n";
+    print "~~~~~~~~~~\n";
+    print "You have entered the Tavern.\n";
+    print "While the atmosphere seems relaxed, it would be wise to tread carefully.\n";
+    print "You notice the people around, taking note of each one.\n";
+
+    my $choice;
+    do {
+        print "~~~~~~~~~~\n";
+        print "Choose an action:\n";
+        print "  ‣ Go to the Bar\n";
+        print "  ‣ Continue to Observe\n";
+        print "  ‣ Leave the tavern\n";
+        
+        $choice = <STDIN>;
+        chomp($choice);
+        
+        if ($choice =~ /go to the bar/i) {
+            $self->goToBar();
+        } elsif ($choice =~ /continue to observe/i) {
+            $self->observePeople();
+        }
+    } while ($choice !~ /leave/i);
+    
+    print "You decide to leave the tavern.\n";
 }
 
 sub goToBar {
-    # to be added 
+    my ($self) = @_;
+    print "~~~~~~~~~~\n";
+    print "You approach the bar and sit on a bar stool.\n";
+    print "The bartender looks over to you while wiping a glass.\n";
+    print "Bartender: Hey, how's it going? What do you need?\n";
+
+    my $choice;
+    do {
+        print "~~~~~~~~~~\n";
+        print "Choose an action:\n";
+        print "  ‣ Buy a drink\n";
+        print "  ‣ Play Drinking game\n";
+        print "  ‣ Leave the bar\n";
+        
+        $choice = <STDIN>;
+        chomp($choice);
+        
+        if ($choice =~ /buy a drink/i) {
+            $self->buyDrink();
+        } elsif ($choice =~ /play drinking game/i) {
+            $self->drinkingGame();
+        }
+    } while ($choice !~ /leave/i);
+    
+    print "Bartender: You know where to find me!\n";
+    print "You leave the bar area.\n";
 }
 
 sub drinkingGame {
-    #to be added 
+    my ($self) = @_;
+    print "~~~~~~~~~~\n";
+    print"Bartender: I see you have heard of the drinking contest we hold!\n"; 
+    print"Bartender: The purpose of the game is to see who can drink the enitre bottle of Jägger in 7 seconds\n";
+    print"Bartender: If you finish bottle, You will get 50 coins, and won't have to pay for the bottle\n"; 
+    print"Bartender: So do you want to participate?\n"; 
+    print "  ‣ Yes\n";
+    print "  ‣ No\n";
+    my $choice = <STDIN>;
+    chomp($choice);
+
+    if($choice=~/yes/i){
+        print "You brace yourself for the challenge and start drinking!\n";
+        # Simulating success/failure based on random chance
+        my $success = int(rand(2));
+        if ($success) {
+            print "Congratulations! You finish the bottle in time and earn 50 coins!\n";
+            $self->{_coins} += 50;
+            print "You have " . $self->{_coins} . " coins.\n";
+        } else {
+            print "You couldn't finish in time. Better luck next time!\n";
+            print "Bartender: Now you have to pay for the bottle, and its 50 coins\n"; 
+            $self->{_coins}-=50; 
+            print "You have " . $self->{_coins} . " coins.\n";
+        }
+    }
+    elsif($choice=~/no/i){
+        print "Bartender: No worries, maybe next time!\n";
+    }
+    
 }
+
+sub buyDrink {
+    my ($self) = @_;
+    my $drink_cost = 5;  # Set cost of drink
+    if ($self->{_coins} >= $drink_cost) {
+        $self->{_coins} -= $drink_cost;
+        print "You buy a drink for $drink_cost coins. Enjoy!\n";
+        print "You have " . $self->{_coins} . " coins left.\n";
+    } else {
+        print "You don't have enough coins to buy a drink.\n";
+    }
+}
+
+sub observePeople {
+    my ($self) = @_;
+    my $choice;
+    do {
+        print "You take a seat and start observing the people around you.\n";
+        print "There's a mix of locals, travelers, and a few shady figures.\n";
+        print "~~~~~~~~~~\n";
+        print "Would you like to:\n";
+        print "  ‣ Continue observing\n";
+        print "  ‣ Go back to the tavern menu\n";
+        
+        $choice = <STDIN>;
+        chomp($choice);
+        
+        if ($choice =~ /continue observing/i) {
+            print "You keep observing, hoping to catch something interesting.\n";
+        }
+    } while ($choice !~ /go back/i);
+    
+    print "You decide to stop observing and return to the main tavern area.\n";
+}
+
 
 1; # must have at end of class definition
