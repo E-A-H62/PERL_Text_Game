@@ -36,6 +36,7 @@ sub goToBlackMarket {
     print "Vendor: What is it you're looking for?\n";
 
     # prompts user for input
+    print "~~~~~~~~~~\n";
     print "Ask about: \n"; 
     print "  ‣ Hats? \n";
     print "  ‣ Weapons?\n";
@@ -44,6 +45,7 @@ sub goToBlackMarket {
     print "  ‣ Leave\n";
     my $item_choice = <STDIN>;
     chomp($item_choice);
+    print "~~~~~~~~~~\n";
 
     # allows user to keep shopping until they type they want to leave
     while ($item_choice !~ /leave/i) {
@@ -72,9 +74,11 @@ sub goToBlackMarket {
         }
         # user prompted to enter if they want to buy anything else
         print "Vendor: Thank you kindly for your patronage.\n";
+        print "~~~~~~~~~~\n";
         print "Vendor: Would you care for anything else?\n";
         $item_choice = <STDIN>;
         chomp($item_choice); 
+        print "~~~~~~~~~~\n";
     }
     # prints out message before user leaves vendor
     print "Vendor: You know where to find me the next time you need something.\n";
@@ -95,9 +99,11 @@ sub buyObject {
     } else {
         # asks if user wants to steal item
         print "You don't have enough coins to buy a $item.\n";
+        print "~~~~~~~~~~\n";
         print "Do you want to steal it?\n"; 
         my $response = <STDIN>;
         chomp($response);
+        print "~~~~~~~~~~\n";
         if ($response =~ /yes/i) {
             # method call so user can try stealing item
             $self->stealObject($item);
@@ -148,6 +154,7 @@ sub seeAssets {
     my ($self) = @_;
 
     # prints out list of things user can check and prompts them to pick one
+    print "~~~~~~~~~~\n";
     print "What would you like to check?\n"; 
     print "  ‣ Health\n";
     print "  ‣ Inventory\n";
@@ -156,6 +163,7 @@ sub seeAssets {
     print "  ‣ Nothing\n";
     my $choice = <STDIN>;
     chomp($choice);
+    print "~~~~~~~~~~\n";
 
     # allows user to keep checking their assets until they want to stop
     while ($choice !~ /nothing/i) {
@@ -187,9 +195,11 @@ sub seeAssets {
             print "Please try checking something else.\n";
         }
         # prompts user if they want to keep checking their assets
+        print "~~~~~~~~~~\n";
         print "What else would you like check?\n";
         $choice = <STDIN>;
-        chomp($choice); 
+        chomp($choice);
+        print "~~~~~~~~~~\n";
     }
 }
 
@@ -198,11 +208,13 @@ sub getFortune {
     # prompts user to choose what they want the fortune teller to tell
     print "Fortune Teller: I was wondering when you'd arrive.\n";
     print "Fortune Teller: Would you like me read your aura, or shall I attempt to tell the future?\n";
+    print "~~~~~~~~~~\n";
     print "Ask about: \n"; 
     print "  ‣ Auras\n";
     print "  ‣ The future\n";
     my $choice = <STDIN>;
     chomp($choice);
+    print "~~~~~~~~~~\n";
 
     # allows user to remain at psychic tent until they want to leave
     while ($choice !~ /leave/i) {
@@ -245,9 +257,11 @@ sub getFortune {
             print "Fortune Teller: I'm sorry, that's not something I can do.\n";
         }
         # prompts user if they want to keep getting their fortunes or futures told
+        print "~~~~~~~~~~\n";
         print "Fortune Teller: Is there anything else I can do for you?\n";
         $choice = <STDIN>;
-        chomp($choice); 
+        chomp($choice);
+        print "~~~~~~~~~~\n";
     }
     print "Fortune Teller: I await your next visit.\n";
 }
@@ -266,6 +280,7 @@ sub goToAlley {
     $self->{_relic} = 1; # sets flag to 1 to indicate user unlocked relic route
 }
 
+# method when user tries to obtain relic
 sub getRelic {
     # allows method to access instance of Thief class and its attributes
     my ($self) = @_;
@@ -290,6 +305,7 @@ sub getRelic {
     print "You're left to your own devices now.\n\n";
 }
 
+# method when user goes to apothecary
 sub goToApothecary {
     # allows method to access instance of Thief class and its attributes
     my ($self) = @_;
@@ -302,11 +318,13 @@ sub goToApothecary {
     print "Glass vials stand in neat rows on the covered table alongside piles of stacked containers.\n";
     print "Apothecary: Good day to you, my friend. What can I help you with?\n";
     # prompts user for what they want
+    print "~~~~~~~~~~\n";
     print "Ask about: \n"; 
     print "  ‣ Medicine \n";
     print "  ‣ Leave\n";
     my $choice = <STDIN>;
     chomp($choice);
+    print "~~~~~~~~~~\n";
 
     # allows user to keep shopping at apothecary until they want to leave
     while ($choice !~ /leave/i) {
@@ -322,13 +340,16 @@ sub goToApothecary {
             print "Apothecary: I'm sorry, I can't help you with that.\n";
         }
         # prompts user if they want to keep shopping
+        print "~~~~~~~~~~\n";
         print "Apothecary: Would you care for anything else?\n";
         $choice = <STDIN>;
-        chomp($choice); 
+        chomp($choice);
+        print "~~~~~~~~~~\n";
     }
     print "Apothecary: If you're ever feeling under the weather I'll be here.\n";
 }
 
+# method when user tries buying medicine
 sub getMedicine {
     # allows method to access instance of Thief class and its attributes
     my ($self) = @_;
@@ -342,9 +363,11 @@ sub getMedicine {
         print "Apothecary: Ah, I have just the thing for you.\n";
         print "Apothecary: The medicine you'll need is 10 coins.\n";
         # asks if user wants to buy medicine
+        print "~~~~~~~~~~\n";
         print "Pay?\n";
         print "Select y/n: ";
         chomp(my $choice = <STDIN>);
+        print "~~~~~~~~~~\n";
         # checks if user wants to buy medicine
         if ($choice eq "y") {
             # method call so user can buy medicine
@@ -356,99 +379,147 @@ sub getMedicine {
     }
 }
 
+# method when user goes to tavern
 sub goToTavern {
+    # allows method to access instance of Thief class and its attributes
     my ($self) = @_;
-    print "~~~~~~~~~~\n";
-    print "You have entered the Tavern.\n";
-    print "While the atmosphere seems relaxed, it would be wise to tread carefully.\n";
-    print "You notice the people around, taking note of each one.\n";
 
+    print "You notice the people around the room, taking note of each one.\n";
+    # initializes variable to hold user input
     my $choice;
+
+    # allows user to choose what to do until they want to leave
     do {
         print "~~~~~~~~~~\n";
         print "Choose an action:\n";
-        print "  ‣ Go to the Bar\n";
-        print "  ‣ Continue to Observe\n";
+        print "  ‣ Go to the bar\n";
+        print "  ‣ Continue to observe\n";
         print "  ‣ Leave the tavern\n";
-        
+        # stores user choice
         $choice = <STDIN>;
         chomp($choice);
+        print "~~~~~~~~~~\n";
         
-        if ($choice =~ /go to the bar/i) {
+        # checks if user wants to go to the bar
+        if ($choice =~ /go to the bar/i or $choice =~ /bar/i) {
+            # method call so user can go to bar
             $self->goToBar();
-        } elsif ($choice =~ /continue to observe/i) {
+        # checks if user wants to keep observing tavern
+        } elsif ($choice =~ /continue to observe/i or $choice =~ /observe/i) {
+            # method call so user can observe people
             $self->observePeople();
+        # user entered invalid input
+        } elsif ($choice !~ /leave/i) {
+            print "Unfortunately that's not an option.\n";
+            print "Please choose to do something else.\n";
         }
+    # breaks out of loop if user types to leave
     } while ($choice !~ /leave/i);
-    
     print "You decide to leave the tavern.\n";
 }
 
+# method when user chooses to go to bar in tavern
 sub goToBar {
+    # allows method to access instance of Thief class and its attributes
     my ($self) = @_;
-    print "~~~~~~~~~~\n";
     print "You approach the bar and sit on a bar stool.\n";
     print "The bartender looks over to you while wiping a glass.\n";
     print "Bartender: Hey, how's it going? What do you need?\n";
 
+    # initializes variable to hold user input
     my $choice;
+    # allows user to choose what to do until they want to leave
     do {
         print "~~~~~~~~~~\n";
         print "Choose an action:\n";
         print "  ‣ Buy a drink\n";
-        print "  ‣ Play Drinking game\n";
+        print "  ‣ Play the drinking game\n";
         print "  ‣ Leave the bar\n";
-        
+        # stores user choice
         $choice = <STDIN>;
         chomp($choice);
+        print "~~~~~~~~~~\n";
         
-        if ($choice =~ /buy a drink/i) {
+        # checks if user wants to buy a drink
+        if ($choice =~ /buy a drink/i or $choice =~ /buy/i) {
+            # method call so user can buy drink
             $self->buyDrink();
-        } elsif ($choice =~ /play drinking game/i) {
+        # checks if user wants to play drinking game
+        } elsif ($choice =~ /play drinking game/i or $choice =~ /play/i) {
+            # method call so user can play drinking game
             $self->drinkingGame();
+        # user entered invalid input
+        } elsif ($choice !~ /leave/i) {
+            print "Unfortunately that's not an option.\n";
+            print "Please choose to do something else.\n";
         }
+    # breaks out of loop if user types to leave
     } while ($choice !~ /leave/i);
     
     print "Bartender: You know where to find me!\n";
     print "You leave the bar area.\n";
 }
 
+# method for user to play drinking game in tavern
 sub drinkingGame {
+    # allows method to access instance of Thief class and its attributes
     my ($self) = @_;
+    
+    # prints description of drinking game
+    print"Bartender: I see you've heard of the drinking contest we hold!\n"; 
+    print"Bartender: The purpose of the game is to see who can drink the enitre bottle of Jägger in 7 seconds.\n";
+    print"Bartender: If you finish bottle, you'll get 50 coins, and won't have to pay for the bottle.\n";
     print "~~~~~~~~~~\n";
-    print"Bartender: I see you have heard of the drinking contest we hold!\n"; 
-    print"Bartender: The purpose of the game is to see who can drink the enitre bottle of Jägger in 7 seconds\n";
-    print"Bartender: If you finish bottle, You will get 50 coins, and won't have to pay for the bottle\n"; 
     print"Bartender: So do you want to participate?\n"; 
     print "  ‣ Yes\n";
     print "  ‣ No\n";
+    # stores user choice
     my $choice = <STDIN>;
     chomp($choice);
+    print "~~~~~~~~~~\n";
 
+    # checks if user wants to play drinking game
     if($choice=~/yes/i){
-        print "You brace yourself for the challenge and start drinking!\n";
-        # Simulating success/failure based on random chance
-        my $success = int(rand(2));
-        if ($success) {
-            print "Congratulations! You finish the bottle in time and earn 50 coins!\n";
-            $self->{_coins} += 50;
-            print "You have " . $self->{_coins} . " coins.\n";
-        } else {
-            print "You couldn't finish in time. Better luck next time!\n";
-            print "Bartender: Now you have to pay for the bottle, and its 50 coins\n"; 
-            $self->{_coins}-=50; 
-            print "You have " . $self->{_coins} . " coins.\n";
+        # checks if user can play drinking game based on amount of coins they have
+        if ($self->{_coins} - 50 > 0) {
+            print "You brace yourself for the challenge and start drinking!\n";
+            # Simulating success/failure based on random chance
+            my $success = int(rand(2));
+
+            # checks if user wins or loses at game
+            if ($success) {
+                print "Congratulations! You finish the bottle in time and earn 50 coins!\n";
+                $self->{_coins} += 50;
+                print "You now have " . $self->{_coins} . " coins.\n";
+            } else {
+                print "You couldn't finish in time. Better luck next time!\n";
+                print "Bartender: Now you have to pay for the bottle, and its 50 coins\n"; 
+                $self->{_coins} -= 50; 
+                print "You now have " . $self->{_coins} . " coins.\n";
+            }
+        } elsif ($choice !~ /leave/i) {
+            print "Bartender: Hmm, looks like you don't have enough coins for this wager.\n";
+            print "Bartender: Why don't you come back when you get enough to play?\n";
         }
     }
-    elsif($choice=~/no/i){
+    # checks if user does not want to play game
+    elsif ($choice=~/no/i) {
         print "Bartender: No worries, maybe next time!\n";
+    # user entered invalid input
+    } else {
+        print "Bartender: That's not something you can do here, sorry.\n";
+        print "Bartender: Maybe there's something else I can help you with?\n";
     }
     
 }
 
+# method when user buys drink
 sub buyDrink {
+    # allows method to access instance of Thief class and its attributes
     my ($self) = @_;
     my $drink_cost = 5;  # Set cost of drink
+
+    # checks if user can purchase drink
     if ($self->{_coins} >= $drink_cost) {
         $self->{_coins} -= $drink_cost;
         print "You buy a drink for $drink_cost coins. Enjoy!\n";
@@ -458,26 +529,31 @@ sub buyDrink {
     }
 }
 
+# method for user to observe people in tavern
 sub observePeople {
+    # allows method to access instance of Thief class and its attributes
     my ($self) = @_;
-    my $choice;
+    my $choice; # initializes variable to hold user input
+
+    # allows user observe people until they want to return to main route of tavern
     do {
         print "You take a seat and start observing the people around you.\n";
-        print "There's a mix of locals, travelers, and a few shady figures.\n";
+        print "There's a mix of locals, travelers, and what you think are shady figures.\n";
         print "~~~~~~~~~~\n";
         print "Would you like to:\n";
-        print "  ‣ Continue observing\n";
-        print "  ‣ Go back to the tavern menu\n";
-        
+        print "  ‣ Continue observing?\n";
+        print "  ‣ Go back to the main tavern menu?\n";
+        # stores user input
         $choice = <STDIN>;
         chomp($choice);
+        print "~~~~~~~~~~\n";
         
-        if ($choice =~ /continue observing/i) {
+        # checks if user wants to keep observing
+        if ($choice =~ /continue observing/i or $choice =~ /observe/i) {
             print "You keep observing, hoping to catch something interesting.\n";
         }
-    } while ($choice !~ /go back/i);
-    
-    print "You decide to stop observing and return to the main tavern area.\n";
+    } while ($choice !~ /go back/i and $choice !~ /main menu/i);
+    print "You decide to stop observing and return your attention back to the tavern.\n";
 }
 
 

@@ -151,6 +151,10 @@ sub explore {
         elsif (grep {$string =~ /$_/i} @tavernWords){
             # calls tavern method on instance of Story class
             $self->tavern();
+
+            # prints description after user chooses to leave tavern
+            print "You push open the wooden door and return to the main road of the city.\n";
+            print "Ready to continue exploring the city, you return your attention to the other places you can go to.\n";
         }
         # user did not enter any words in the accepted lists of words
         else {
@@ -161,7 +165,7 @@ sub explore {
 
         # prompts user for more input to continue playing
         print "~~~~~~~~~~\n";
-        print "What else do you do?\n";
+        print "What else do you do in your exploration?\n";
         $string = <STDIN>;
         chomp($string);
         print "~~~~~~~~~~\n";
